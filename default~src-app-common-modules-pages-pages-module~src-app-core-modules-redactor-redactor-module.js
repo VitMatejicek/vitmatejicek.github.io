@@ -53,7 +53,8 @@ var PagesCreateComponent = /** @class */ (function () {
         var data = {
             instance: window['instance_id'],
             url: this.pageForm.get("url").value,
-            page_type: ""
+            page_type: "",
+            options: ""
         };
         this.pageService.createPage(data).then(function (data) {
             console.log(data);

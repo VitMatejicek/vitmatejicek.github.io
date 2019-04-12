@@ -1406,15 +1406,15 @@ var environmentConfig = {
         development: ['localhost'],
         stage: ['localhost'],
         production: ['localhost'],
-        localhost: ['http://magnusi.tech'],
+        localhost: [window.location.protocol + '//magnusi.tech'],
     },
     vars: {
         localhost: {
-            apiUrl: 'http://magnusi.tech',
+            apiUrl: window.location.protocol + '//magnusi.tech',
             logEnabled: true,
         },
         development: {
-            apiUrl: 'http://magnusi.tech',
+            apiUrl: window.location.protocol + '//magnusi.tech',
             logEnabled: false,
         },
         stage: {
