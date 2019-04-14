@@ -292,7 +292,8 @@ var ArticlesCreateComponent = /** @class */ (function () {
             "tags": [""],
             "image_url": this.articleForm.get('image_url').value,
             "description": this.articleForm.get('desc').value,
-            "categories": categories
+            "categories": categories,
+            "published": true,
         };
         console.log(data);
         this.articleService.createArticle(data).then(function (data) {

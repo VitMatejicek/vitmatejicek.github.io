@@ -5808,6 +5808,86 @@ module.exports = "REKLAMA!!!!!!\nREKLAMA!!!!!!\nREKLAMA!!!!\n"
 
 /***/ }),
 
+/***/ "./src/app/common/components/grid-components/archive/archive.component.ts":
+/*!********************************************************************************!*\
+  !*** ./src/app/common/components/grid-components/archive/archive.component.ts ***!
+  \********************************************************************************/
+/*! exports provided: gridArchiveComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "gridArchiveComponent", function() { return gridArchiveComponent; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var src_app_common_modules_articles_articles_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/common/modules/articles/articles.service */ "./src/app/common/modules/articles/articles.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var gridArchiveComponent = /** @class */ (function () {
+    function gridArchiveComponent(articleService, route) {
+        this.articleService = articleService;
+        this.route = route;
+    }
+    gridArchiveComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.loaded = false;
+        var options = JSON.parse(this.options);
+        this.articleService.getArticles().then(function (articles) {
+            //this.articles = articles;
+            var arts = [];
+            articles.forEach(function (article) {
+                _this.articleService.getArticle(article).then(function (art) {
+                    arts.push(art);
+                });
+            });
+            _this.articles = arts;
+            _this.loaded = true;
+        });
+    };
+    gridArchiveComponent.minGridColSize = 2;
+    gridArchiveComponent.maxGridColSize = 50;
+    gridArchiveComponent.minGridRowSize = 2;
+    gridArchiveComponent.maxGridRowSize = 50;
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Object)
+    ], gridArchiveComponent.prototype, "options", void 0);
+    gridArchiveComponent = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
+            selector: 'grid-archive',
+            template: __webpack_require__(/*! ./archive.template.html */ "./src/app/common/components/grid-components/archive/archive.template.html"),
+        }),
+        __metadata("design:paramtypes", [src_app_common_modules_articles_articles_service__WEBPACK_IMPORTED_MODULE_1__["ArticlesService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"]])
+    ], gridArchiveComponent);
+    return gridArchiveComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/common/components/grid-components/archive/archive.template.html":
+/*!*********************************************************************************!*\
+  !*** ./src/app/common/components/grid-components/archive/archive.template.html ***!
+  \*********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"row\">\n    <div class=\"col-md-3\" *ngFor=\"let article of articles\">\n            <div class=\"card h-100\" routerLink=\"/article/{{article.id}}\" style=\"cursor: pointer;background-color: #edcfac;\n            box-shadow: 0 1px 15px 0 rgba(0, 0, 0, 0.25) !important;\">\n                <div class=\"d-flex align-items-baseline\" style=\"min-height: 10px;\">\n                    <p class=\"px-3 card-category pt-2 mb-0\" *ngIf=\"category != null\">{{category.info.name}}</p>\n                    <!-- <p routerLink=\"/article/{{article.id}}\" style=\"cursor: pointer;\" class=\"mb-0 px-3\">Více >></p> -->\n                </div>\n                <div class=\"d-flex align-items-baseline\">\n                    <h5 class=\"card-title mb-2 px-3\">{{article.name}}</h5>\n                </div>\n                <div class=\"small pt-0 px-3 pb-2\">\n                    {{ (article.description.length > 75)? (article.description | slice:0:75)+'..':(article.description) }}\n                </div>\n                <img *ngIf=\"article.image_url != ''\" [src]=\"article.image_url\" class=\"card-image\" alt=\"\">\n                <!-- <div class=\"card-footer d-flex\">\n\n                </div> -->\n            </div>\n    </div>\n</div>\n\n"
+
+/***/ }),
+
 /***/ "./src/app/common/components/grid-components/article/article.component.ts":
 /*!********************************************************************************!*\
   !*** ./src/app/common/components/grid-components/article/article.component.ts ***!
@@ -5902,6 +5982,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "gridArticlePreviewComponent", function() { return gridArticlePreviewComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var src_app_common_modules_articles_articles_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/common/modules/articles/articles.service */ "./src/app/common/modules/articles/articles.service.ts");
+/* harmony import */ var src_app_common_modules_categories_categories_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/common/modules/categories/categories.service */ "./src/app/common/modules/categories/categories.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -5913,9 +5994,11 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 };
 
 
+
 var gridArticlePreviewComponent = /** @class */ (function () {
-    function gridArticlePreviewComponent(articleService) {
+    function gridArticlePreviewComponent(articleService, categoriesService) {
         this.articleService = articleService;
+        this.categoriesService = categoriesService;
     }
     gridArticlePreviewComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -5933,8 +6016,15 @@ var gridArticlePreviewComponent = /** @class */ (function () {
         }
         if (options.index) {
             this.index = options.index;
-            this.articleService.getByNth('desc', this.index.toString(), '1').then(function (article) {
+            console.log(this.index.toString());
+            this.articleService.getByNth('desc', this.index - 1, '1').then(function (article) {
                 _this.article = article[0];
+                if (article[0].categories) {
+                    _this.categoriesService.getCategory(article[0].categories[0]).then(function (category) {
+                        console.log(category);
+                        _this.category = category;
+                    });
+                }
                 _this.loaded = true;
             });
         }
@@ -5944,9 +6034,9 @@ var gridArticlePreviewComponent = /** @class */ (function () {
     };
     gridArticlePreviewComponent.prototype.openArticle = function () {
     };
-    gridArticlePreviewComponent.minGridColSize = 3;
+    gridArticlePreviewComponent.minGridColSize = 1;
     gridArticlePreviewComponent.maxGridColSize = 4;
-    gridArticlePreviewComponent.minGridRowSize = 3;
+    gridArticlePreviewComponent.minGridRowSize = 2;
     gridArticlePreviewComponent.maxGridRowSize = 6;
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
@@ -5962,7 +6052,7 @@ var gridArticlePreviewComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./article.template.html */ "./src/app/common/components/grid-components/articlePreview/article.template.html"),
             styles: [__webpack_require__(/*! ./article.styles.scss */ "./src/app/common/components/grid-components/articlePreview/article.styles.scss")]
         }),
-        __metadata("design:paramtypes", [src_app_common_modules_articles_articles_service__WEBPACK_IMPORTED_MODULE_1__["ArticlesService"]])
+        __metadata("design:paramtypes", [src_app_common_modules_articles_articles_service__WEBPACK_IMPORTED_MODULE_1__["ArticlesService"], src_app_common_modules_categories_categories_service__WEBPACK_IMPORTED_MODULE_2__["CategoriesService"]])
     ], gridArticlePreviewComponent);
     return gridArticlePreviewComponent;
 }());
@@ -5978,7 +6068,7 @@ var gridArticlePreviewComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".card {\n  border: 1px solid #f2f2f2; }\n\n.card-title {\n  flex: 1;\n  color: #1d253b;\n  font-weight: 300; }\n\n.card-category {\n  flex: 1;\n  color: #9a9a9a;\n  text-transform: capitalize; }\n\n.card-image {\n  -o-object-fit: cover;\n     object-fit: cover;\n  margin-left: -1px;\n  margin-right: -1px;\n  height: 15em; }\n\n.gridArticlePreviewComponent {\n  box-shadow: 0 1px 15px 0 rgba(123, 123, 123, 0.05); }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9yb290L3JlbWVkaWFzL21lZWRpYXNfZnJvbnRlbmQvc3JjL2FwcC9jb21tb24vY29tcG9uZW50cy9ncmlkLWNvbXBvbmVudHMvYXJ0aWNsZVByZXZpZXcvYXJ0aWNsZS5zdHlsZXMuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLDBCQUF5QixFQUM1Qjs7QUFFRDtFQUNJLFFBQU87RUFDUCxlQUFjO0VBQ2QsaUJBQWdCLEVBQ25COztBQUVEO0VBQ0ksUUFBTztFQUNQLGVBQWM7RUFDZCwyQkFBMEIsRUFDN0I7O0FBRUQ7RUFDSSxxQkFBaUI7S0FBakIsa0JBQWlCO0VBQ2pCLGtCQUFpQjtFQUNqQixtQkFBa0I7RUFDbEIsYUFBWSxFQUNmOztBQUVEO0VBRUksbURBQTZDLEVBQ2hEIiwiZmlsZSI6InNyYy9hcHAvY29tbW9uL2NvbXBvbmVudHMvZ3JpZC1jb21wb25lbnRzL2FydGljbGVQcmV2aWV3L2FydGljbGUuc3R5bGVzLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuY2FyZCB7XG4gICAgYm9yZGVyOiAxcHggc29saWQgI2YyZjJmMjtcbn1cblxuLmNhcmQtdGl0bGUge1xuICAgIGZsZXg6IDE7XG4gICAgY29sb3I6ICMxZDI1M2I7XG4gICAgZm9udC13ZWlnaHQ6IDMwMDtcbn1cblxuLmNhcmQtY2F0ZWdvcnkge1xuICAgIGZsZXg6IDE7XG4gICAgY29sb3I6ICM5YTlhOWE7XG4gICAgdGV4dC10cmFuc2Zvcm06IGNhcGl0YWxpemU7XG59XG5cbi5jYXJkLWltYWdlIHtcbiAgICBvYmplY3QtZml0OiBjb3ZlcjtcbiAgICBtYXJnaW4tbGVmdDogLTFweDtcbiAgICBtYXJnaW4tcmlnaHQ6IC0xcHg7XG4gICAgaGVpZ2h0OiAxNWVtO1xufVxuXG4uZ3JpZEFydGljbGVQcmV2aWV3Q29tcG9uZW50IHtcbiAgICAtd2Via2l0LWJveC1zaGFkb3c6IDAgMXB4IDE1cHggMCBoc2xhKDAsMCUsNDguMiUsLjA1KTtcbiAgICBib3gtc2hhZG93OiAwIDFweCAxNXB4IDAgaHNsYSgwLDAlLDQ4LjIlLC4wNSk7XG59XG4iXX0= */"
+module.exports = ".card {\n  border: 1px solid #f2f2f2; }\n\n.card-title {\n  flex: 1;\n  font-weight: 300; }\n\n.card-category {\n  flex: 1;\n  text-transform: capitalize; }\n\n.card-image {\n  -o-object-fit: cover;\n     object-fit: cover;\n  margin-left: -1px;\n  margin-right: -1px;\n  height: 15em; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9yb290L3JlbWVkaWFzL21lZWRpYXNfZnJvbnRlbmQvc3JjL2FwcC9jb21tb24vY29tcG9uZW50cy9ncmlkLWNvbXBvbmVudHMvYXJ0aWNsZVByZXZpZXcvYXJ0aWNsZS5zdHlsZXMuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLDBCQUF5QixFQUM1Qjs7QUFFRDtFQUNJLFFBQU87RUFFUCxpQkFBZ0IsRUFDbkI7O0FBRUQ7RUFDSSxRQUFPO0VBRVAsMkJBQTBCLEVBQzdCOztBQUVEO0VBQ0kscUJBQWlCO0tBQWpCLGtCQUFpQjtFQUNqQixrQkFBaUI7RUFDakIsbUJBQWtCO0VBQ2xCLGFBQVksRUFDZiIsImZpbGUiOiJzcmMvYXBwL2NvbW1vbi9jb21wb25lbnRzL2dyaWQtY29tcG9uZW50cy9hcnRpY2xlUHJldmlldy9hcnRpY2xlLnN0eWxlcy5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmNhcmQge1xuICAgIGJvcmRlcjogMXB4IHNvbGlkICNmMmYyZjI7XG59XG5cbi5jYXJkLXRpdGxlIHtcbiAgICBmbGV4OiAxO1xuICAgIC8vY29sb3I6ICMxZDI1M2I7XG4gICAgZm9udC13ZWlnaHQ6IDMwMDtcbn1cblxuLmNhcmQtY2F0ZWdvcnkge1xuICAgIGZsZXg6IDE7XG4gICAgLy9jb2xvcjogIzlhOWE5YTtcbiAgICB0ZXh0LXRyYW5zZm9ybTogY2FwaXRhbGl6ZTtcbn1cblxuLmNhcmQtaW1hZ2Uge1xuICAgIG9iamVjdC1maXQ6IGNvdmVyO1xuICAgIG1hcmdpbi1sZWZ0OiAtMXB4O1xuICAgIG1hcmdpbi1yaWdodDogLTFweDtcbiAgICBoZWlnaHQ6IDE1ZW07XG59XG5cbi8vIC5ncmlkQXJ0aWNsZVByZXZpZXdDb21wb25lbnQge1xuLy8gICAgIC13ZWJraXQtYm94LXNoYWRvdzogMCAxcHggMTVweCAwIGhzbGEoMCwwJSw0OC4yJSwuMDUpO1xuLy8gICAgIGJveC1zaGFkb3c6IDAgMXB4IDE1cHggMCBoc2xhKDAsMCUsNDguMiUsLjA1KTtcbi8vIH1cbiJdfQ== */"
 
 /***/ }),
 
@@ -5989,7 +6079,7 @@ module.exports = ".card {\n  border: 1px solid #f2f2f2; }\n\n.card-title {\n  fl
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div *ngIf=\"loaded && article && (!editmode && index)\" class=\"h-100\">\n    <div class=\"card h-100\">\n        <div class=\"d-flex align-items-baseline\">\n            <p class=\"px-3 card-category pt-2 mb-0\">Kategorie</p>\n            <p routerLink=\"/article/{{article.id}}\" style=\"cursor: pointer;\" class=\"mb-0 px-3\">Více >></p>\n        </div>\n        <div class=\"d-flex align-items-baseline\">\n            <h5 class=\"card-title px-3\">{{article.name}}</h5>\n        </div>\n        <div class=\"small pt-0 px-3 pb-2\">\n            {{ (article.description.length > 75)? (article.description | slice:0:75)+'..':(article.description) }}\n        </div>\n        <img *ngIf=\"article.image_url != ''\" [src]=\"article.image_url\" class=\"card-image\" alt=\"\">\n        <!-- <div class=\"card-footer d-flex\">\n\n        </div> -->\n    </div>\n</div>\n\n<div *ngIf=\"index && editmode\">\n    {{index}}\n</div>\n"
+module.exports = "<div *ngIf=\"loaded && article && (!editmode && index)\" class=\"h-100\">\n    <div class=\"card h-100\" routerLink=\"/article/{{article.id}}\" style=\"cursor: pointer;\">\n        <div class=\"d-flex align-items-baseline\">\n            <p class=\"px-3 card-category pt-2 mb-0\" *ngIf=\"category != null\">{{category.info.name}}</p>\n            <!-- <p routerLink=\"/article/{{article.id}}\" style=\"cursor: pointer;\" class=\"mb-0 px-3\">Více >></p> -->\n        </div>\n        <div class=\"d-flex align-items-baseline\">\n            <h5 class=\"card-title mb-2 px-3\">{{article.name}}</h5>\n        </div>\n        <div class=\"small pt-0 px-3 pb-2\">\n            {{ (article.description.length > 75)? (article.description | slice:0:75)+'..':(article.description) }}\n        </div>\n        <img *ngIf=\"article.image_url != ''\" [src]=\"article.image_url\" class=\"card-image\" alt=\"\">\n        <!-- <div class=\"card-footer d-flex\">\n\n        </div> -->\n    </div>\n</div>\n\n<div *ngIf=\"index && editmode\">\n    {{index}}\n</div>\n"
 
 /***/ }),
 
@@ -6096,11 +6186,14 @@ var gridImageComponent = /** @class */ (function () {
     gridImageComponent.prototype.ngOnInit = function () {
         var options = JSON.parse(this.options);
         this.imgUrl = options.imageUrl;
+        if (options.imageLink) {
+            this.imgLink = options.imageLink;
+        }
     };
     gridImageComponent.minGridColSize = 1;
-    gridImageComponent.maxGridColSize = 6;
+    gridImageComponent.maxGridColSize = 50;
     gridImageComponent.minGridRowSize = 1;
-    gridImageComponent.maxGridRowSize = 10;
+    gridImageComponent.maxGridRowSize = 50;
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
         __metadata("design:type", Object)
@@ -6126,7 +6219,7 @@ var gridImageComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<img style=\"width:100%\" src=\"{{imgUrl}}\" alt=\"\">\n"
+module.exports = "\n<a *ngIf=\"imgLink\" [href]=\"imgLink\">\n    <img style=\"width:100%\" src=\"{{imgUrl}}\" alt=\"\">\n</a>\n<img *ngIf=\"!imgLink\" style=\"width:100%\" src=\"{{imgUrl}}\" alt=\"\">\n"
 
 /***/ }),
 
@@ -6142,6 +6235,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "gridMenuComponent", function() { return gridMenuComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var src_app_common_modules_pages_pages_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! src/app/common/modules/pages/pages.service */ "./src/app/common/modules/pages/pages.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -6153,23 +6247,41 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 };
 
 
+
 var gridMenuComponent = /** @class */ (function () {
-    function gridMenuComponent(pageService) {
+    function gridMenuComponent(pageService, router) {
         this.pageService = pageService;
+        this.router = router;
     }
     gridMenuComponent.prototype.ngOnInit = function () {
         var _this = this;
         var options = JSON.parse(this.options);
         this.pageService.getPages().then(function (data) {
             var links = [];
+            var index;
             data.forEach(function (element) {
                 if (element[0] != 'index' && element[0] != 'categories' && element[0] != 'articles') {
                     links.push(element);
                 }
+                else if (element[0] == 'index') {
+                    index = element;
+                }
             });
+            //links.reverse();
+            //[this.links[links.length], this.links[1]] = [this.links[1],this.links[links.length]];
             _this.links = links;
+            console.log(links);
+            _this.links.push(index);
         });
         //this.imgUrl = options.imageUrl;
+    };
+    gridMenuComponent.prototype.goto = function (link) {
+        var _this = this;
+        console.log("ok");
+        this.router.navigateByUrl('/', { skipLocationChange: true }).then(function () {
+            _this.router.navigated = false;
+            _this.router.navigate([link]);
+        });
     };
     gridMenuComponent.minGridColSize = 7;
     gridMenuComponent.maxGridColSize = 20;
@@ -6183,13 +6295,26 @@ var gridMenuComponent = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'grid-menu',
             template: __webpack_require__(/*! ./menu.template.html */ "./src/app/common/components/grid-components/menu/menu.template.html"),
+            styles: [__webpack_require__(/*! ./menu.styles.scss */ "./src/app/common/components/grid-components/menu/menu.styles.scss")]
         }),
-        __metadata("design:paramtypes", [src_app_common_modules_pages_pages_service__WEBPACK_IMPORTED_MODULE_1__["PagesService"]])
+        __metadata("design:paramtypes", [src_app_common_modules_pages_pages_service__WEBPACK_IMPORTED_MODULE_1__["PagesService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
     ], gridMenuComponent);
     return gridMenuComponent;
 }());
 
 
+
+/***/ }),
+
+/***/ "./src/app/common/components/grid-components/menu/menu.styles.scss":
+/*!*************************************************************************!*\
+  !*** ./src/app/common/components/grid-components/menu/menu.styles.scss ***!
+  \*************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = ".d-flex.menu-container {\n  height: 100%;\n  align-items: center; }\n\ngrid-menu {\n  width: 100% !important; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9yb290L3JlbWVkaWFzL21lZWRpYXNfZnJvbnRlbmQvc3JjL2FwcC9jb21tb24vY29tcG9uZW50cy9ncmlkLWNvbXBvbmVudHMvbWVudS9tZW51LnN0eWxlcy5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksYUFBWTtFQUNaLG9CQUFtQixFQUN0Qjs7QUFFRDtFQUNJLHVCQUFzQixFQUN6QiIsImZpbGUiOiJzcmMvYXBwL2NvbW1vbi9jb21wb25lbnRzL2dyaWQtY29tcG9uZW50cy9tZW51L21lbnUuc3R5bGVzLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuZC1mbGV4Lm1lbnUtY29udGFpbmVyIHtcbiAgICBoZWlnaHQ6IDEwMCU7XG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbn1cblxuZ3JpZC1tZW51IHtcbiAgICB3aWR0aDogMTAwJSAhaW1wb3J0YW50O1xufVxuIl19 */"
 
 /***/ }),
 
@@ -6200,7 +6325,7 @@ var gridMenuComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"d-flex\">\n    <div *ngIf=\"editmode\">Whoa</div>\n    <div *ngFor=\"let link of links\" routerLink=\"/page/{{link[0]}}\" style=\"cursor: pointer;\" class=\"px-4 py-2\">\n        {{link[0]}}\n    </div>\n</div>\n"
+module.exports = "<div class=\"d-flex menu-container\">\n    <div *ngIf=\"editmode\">editmode</div>\n    <div *ngFor=\"let link of links\"  (mousedown)=\"goto('/page/'+link[0])\" style=\"cursor: pointer;max-height: 2.2rem;white-space: nowrap;\" class=\"px-5 py-2\">\n        <span *ngIf=\"link[0] != 'index' && link[0] != 'about'\">{{link[0]}}</span>\n        <span *ngIf=\"link[0] == 'index'\">úvod</span>\n        <span *ngIf=\"link[0] == 'about'\">o​​ nás</span>\n    </div>\n</div>\n​\n"
 
 /***/ }),
 
@@ -6227,20 +6352,32 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 var gridTextComponent = /** @class */ (function () {
     function gridTextComponent() {
+        this.hasClasses = new _angular_core__WEBPACK_IMPORTED_MODULE_0__["EventEmitter"]();
     }
     gridTextComponent.prototype.ngOnInit = function () {
         var options = JSON.parse(this.options);
         this.text = options.text;
-        this.alignment = options.align;
+        if (options.class) {
+            this.class = options.class;
+            this.hasClasses.emit("parent-" + this.class + "|" + this.id);
+        }
     };
     gridTextComponent.minGridColSize = 2;
-    gridTextComponent.maxGridColSize = 6;
+    gridTextComponent.maxGridColSize = 50;
     gridTextComponent.minGridRowSize = 1;
-    gridTextComponent.maxGridRowSize = 3;
+    gridTextComponent.maxGridRowSize = 50;
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
+        __metadata("design:type", Object)
+    ], gridTextComponent.prototype, "id", void 0);
     __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Input"])(),
         __metadata("design:type", Object)
     ], gridTextComponent.prototype, "options", void 0);
+    __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Output"])(),
+        __metadata("design:type", Object)
+    ], gridTextComponent.prototype, "hasClasses", void 0);
     gridTextComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'grid-text',
@@ -6262,96 +6399,7 @@ var gridTextComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- <div class=\"p-2\"  [ngClass]=\"{'text-left' : (alignment == 'left'), 'text-center' : (alignment == 'center'),'text-right' : alignment == 'right' }\" >\n    {{text}}\n</div> -->\n\n\n<div class=\"p-2\" [innerHTML]=\"text\">/<div>\n\n"
-
-/***/ }),
-
-/***/ "./src/app/common/modules/pages/pages.service.ts":
-/*!*******************************************************!*\
-  !*** ./src/app/common/modules/pages/pages.service.ts ***!
-  \*******************************************************/
-/*! exports provided: PagesService */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PagesService", function() { return PagesService; });
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
-/* harmony import */ var src_app_core_services__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/core/services */ "./src/app/core/services/index.ts");
-/* harmony import */ var src_app_core_services_cookies_cookies_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/core/services/cookies/cookies.service */ "./src/app/core/services/cookies/cookies.service.ts");
-var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (undefined && undefined.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-var PagesService = /** @class */ (function () {
-    function PagesService(http, envService, cookies, authentication) {
-        this.http = http;
-        this.envService = envService;
-        this.cookies = cookies;
-        this.authentication = authentication;
-    }
-    PagesService.prototype.getPages = function () {
-        var _this = this;
-        return new Promise(function (resolve, reject) {
-            _this.http.get(_this.envService.read('apiUrl') + '/' + window['instance_id'] + '/pages').subscribe(resolve, reject);
-        });
-    };
-    PagesService.prototype.getPageInfo = function (gridId) {
-        var _this = this;
-        return new Promise(function (resolve, reject) {
-            _this.http.get(_this.envService.read('apiUrl') + '/grid/' + gridId).subscribe(resolve, reject);
-        });
-    };
-    PagesService.prototype.deletePage = function (gridId) {
-        var _this = this;
-        var authinfo = this.authentication._authinfo.get();
-        var options = {
-            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({ 'Content-Type': 'application/json' }),
-            body: authinfo
-        };
-        return new Promise(function (resolve, reject) {
-            _this.http.delete(_this.envService.read('apiUrl') + '/grid/' + gridId, options).subscribe(resolve, reject);
-        });
-    };
-    PagesService.prototype.editPage = function (gridId, data) {
-        var _this = this;
-        var authinfo = this.authentication._authinfo.get();
-        return new Promise(function (resolve, reject) {
-            _this.http.patch(_this.envService.read('apiUrl') + '/grid/' + gridId, { auth_info: authinfo, grid: data }).subscribe(resolve, reject);
-        });
-    };
-    PagesService.prototype.createPage = function (data) {
-        var _this = this;
-        var authinfo = this.authentication._authinfo.get();
-        var grid = {
-            auth_info: authinfo,
-            grid: data
-        };
-        return new Promise(function (resolve, reject) {
-            _this.http.post(_this.envService.read('apiUrl') + '/grid/new', grid).subscribe(resolve, reject);
-        });
-    };
-    PagesService = __decorate([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
-        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"],
-            src_app_core_services__WEBPACK_IMPORTED_MODULE_2__["EnvironmentService"],
-            src_app_core_services_cookies_cookies_service__WEBPACK_IMPORTED_MODULE_3__["CookiesService"],
-            src_app_core_services__WEBPACK_IMPORTED_MODULE_2__["AuthenticationService"]])
-    ], PagesService);
-    return PagesService;
-}());
-
-
+module.exports = "<!-- <div class=\"p-2\"  [ngClass]=\"{'text-left' : (alignment == 'left'), 'text-center' : (alignment == 'center'),'text-right' : alignment == 'right' }\" >\n    {{text}}\n</div> -->\n\n\n<div class=\"p-2\" [ngClass]=\"class\" [innerHTML]=\"text\">/<div>\n\n"
 
 /***/ }),
 
@@ -6390,6 +6438,7 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 
 var PageComponent = /** @class */ (function () {
     function PageComponent(authentication, pageService, modalService, route, toast, router) {
+        var _this = this;
         this.authentication = authentication;
         this.pageService = pageService;
         this.modalService = modalService;
@@ -6401,6 +6450,21 @@ var PageComponent = /** @class */ (function () {
         //create new grid item
         this.componentDefinitions = [];
         this.chosenComponentOptions = {};
+        this.outputs = {
+            hasClasses: function (clazz) {
+                setTimeout(function () {
+                    var clazId = clazz.split("|");
+                    _this.dashboard.forEach(function (element) {
+                        //console.log(clazId[1], element.id);
+                        if (element.id == clazId[1]) {
+                            var index = _this.dashboard.indexOf(element);
+                            _this.dashboard[index]['class'] = clazId[0];
+                            //element['clazz'] =
+                        }
+                    });
+                }, 0);
+            }
+        };
     }
     PageComponent_1 = PageComponent;
     PageComponent.prototype.ngOnInit = function () {
@@ -6449,14 +6513,12 @@ var PageComponent = /** @class */ (function () {
                 enabled: this.editmode,
             }
         };
-        this.pageService.getGridInfo(this.page).then(function (grid) {
-            return _this.pageService.getPageGrid(_this.page).then(function (data) {
-                console.log("here pyčo");
-                _this.gridId = grid.id;
-                _this.dashboard = data || [];
-                _this.loaded = true;
-                _this.calibrateOrderedArticles();
-            });
+        this.pageService.getPageGrid(this.page).then(function (data) {
+            _this.gridId = data[0].grid;
+            _this.dashboard = data;
+            console.log(data);
+            _this.loaded = true;
+            _this.calibrateOrderedArticles();
         });
     };
     PageComponent.prototype.getComponent = function (component) {
@@ -6515,6 +6577,7 @@ var PageComponent = /** @class */ (function () {
         var _this = this;
         this.loaded = false;
         this.dashboard.forEach(function (element) {
+            console.log(_this.page, element);
             _this.pageService.savePageGrid(_this.page, element).then(function (data) {
                 _this.loaded = true;
             });
@@ -6548,7 +6611,24 @@ var PageComponent = /** @class */ (function () {
             this.dashboard[indexOfArticle].options = JSON.stringify(options);
         }
     };
-    PageComponent.prototype.editItem = function (event, item) {
+    PageComponent.prototype.editItem = function (event, item, content) {
+        var _this = this;
+        console.log(this.page);
+        this.componentDefinitions = this.pageService.getComponentDefinitions();
+        this.componentDefinitions.forEach(function (element) {
+            if (element.name == item.component) {
+                _this.chosenComponent = element;
+            }
+        });
+        var options = JSON.parse(item.options);
+        this.chosenComponentOptions = options;
+        this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(function (result) {
+            _this.pageService.savePageGrid(_this.page, { id: item.id, grid: _this.gridId, cols: item.cols, rows: item.rows, y: item.y, x: item.x, options: JSON.stringify(_this.chosenComponentOptions), component: item.component }).then(function (data) {
+                //this.addItem( {cols: com.minGridColSize, rows: 1, y: com.minGridRowSize, x: 0,options:JSON.stringify(this.chosenComponentOptions),component:this.chosenComponent.name});
+            });
+        }, function (reason) {
+            //this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+        });
     };
     PageComponent.prototype.open = function (content) {
         var _this = this;
@@ -6592,7 +6672,7 @@ var PageComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".editbar {\n  position: fixed;\n  bottom: 2rem;\n  left: 0;\n  display: flex;\n  height: 3rem;\n  width: 100%;\n  z-index: 100;\n  align-content: center;\n  flex-direction: row;\n  justify-content: center; }\n\n.editbar-inside {\n  height: 3.5rem;\n  width: 80%;\n  box-shadow: 0px 0px 8px -3px black;\n  background-color: white;\n  border-radius: 2px;\n  display: flex;\n  flex-direction: row;\n  align-items: center; }\n\ngridster-item > .button-holder {\n  display: none; }\n\ngridster-item:hover > .button-holder {\n  color: gray !important;\n  display: block;\n  cursor: pointer; }\n\n.button-holder-right {\n  z-index: 99;\n  position: absolute;\n  top: -3px;\n  right: 5px; }\n\n.button-holder-left {\n  z-index: 99;\n  position: absolute;\n  top: -3px;\n  left: 5px; }\n\n.bg-white {\n  background-color: white; }\n\ngridster-item.gridArticlePreviewComponent {\n  box-shadow: 0 1px 15px 0 rgba(123, 123, 123, 0.05); }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9yb290L3JlbWVkaWFzL21lZWRpYXNfZnJvbnRlbmQvc3JjL2FwcC9jb3JlL2NvbXBvbmVudHMvcGFnZS9wYWdlLnN0eWxlcy5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksZ0JBQWU7RUFDZixhQUFZO0VBQ1osUUFBTztFQUNQLGNBQWE7RUFDYixhQUFZO0VBQ1osWUFBVztFQUNYLGFBQVk7RUFDWixzQkFBcUI7RUFDckIsb0JBQW1CO0VBQ25CLHdCQUF1QixFQUMxQjs7QUFHRDtFQUNJLGVBQWM7RUFDZCxXQUFVO0VBQ1YsbUNBQWtDO0VBQ2xDLHdCQUF1QjtFQUN2QixtQkFBa0I7RUFDbEIsY0FBYTtFQUNiLG9CQUFtQjtFQUNuQixvQkFBbUIsRUFDdEI7O0FBRUQ7RUFDSSxjQUFhLEVBQ2hCOztBQUVEO0VBQ0ksdUJBQXNCO0VBQ3RCLGVBQWM7RUFDZCxnQkFBZSxFQUNsQjs7QUFFRDtFQUNJLFlBQVc7RUFDWCxtQkFBa0I7RUFDbEIsVUFBUztFQUNULFdBQVUsRUFDYjs7QUFFRDtFQUNJLFlBQVc7RUFDWCxtQkFBa0I7RUFDbEIsVUFBUztFQUNULFVBQVMsRUFDWjs7QUFFRDtFQUNJLHdCQUF1QixFQUMxQjs7QUFFRDtFQUVJLG1EQUE2QyxFQUNoRCIsImZpbGUiOiJzcmMvYXBwL2NvcmUvY29tcG9uZW50cy9wYWdlL3BhZ2Uuc3R5bGVzLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuZWRpdGJhciB7XG4gICAgcG9zaXRpb246IGZpeGVkO1xuICAgIGJvdHRvbTogMnJlbTtcbiAgICBsZWZ0OiAwO1xuICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgaGVpZ2h0OiAzcmVtO1xuICAgIHdpZHRoOiAxMDAlO1xuICAgIHotaW5kZXg6IDEwMDtcbiAgICBhbGlnbi1jb250ZW50OiBjZW50ZXI7XG4gICAgZmxleC1kaXJlY3Rpb246IHJvdztcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbn1cblxuXG4uZWRpdGJhci1pbnNpZGUge1xuICAgIGhlaWdodDogMy41cmVtO1xuICAgIHdpZHRoOiA4MCU7XG4gICAgYm94LXNoYWRvdzogMHB4IDBweCA4cHggLTNweCBibGFjaztcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiB3aGl0ZTtcbiAgICBib3JkZXItcmFkaXVzOiAycHg7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBmbGV4LWRpcmVjdGlvbjogcm93O1xuICAgIGFsaWduLWl0ZW1zOiBjZW50ZXI7XG59XG5cbmdyaWRzdGVyLWl0ZW0gPiAuYnV0dG9uLWhvbGRlciB7XG4gICAgZGlzcGxheTogbm9uZTtcbn1cblxuZ3JpZHN0ZXItaXRlbTpob3ZlciA+IC5idXR0b24taG9sZGVyIHtcbiAgICBjb2xvcjogZ3JheSAhaW1wb3J0YW50O1xuICAgIGRpc3BsYXk6IGJsb2NrO1xuICAgIGN1cnNvcjogcG9pbnRlcjtcbn1cblxuLmJ1dHRvbi1ob2xkZXItcmlnaHQge1xuICAgIHotaW5kZXg6IDk5O1xuICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgICB0b3A6IC0zcHg7XG4gICAgcmlnaHQ6IDVweDtcbn1cblxuLmJ1dHRvbi1ob2xkZXItbGVmdCB7XG4gICAgei1pbmRleDogOTk7XG4gICAgcG9zaXRpb246IGFic29sdXRlO1xuICAgIHRvcDogLTNweDtcbiAgICBsZWZ0OiA1cHg7XG59XG5cbi5iZy13aGl0ZSB7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogd2hpdGU7XG59XG5cbmdyaWRzdGVyLWl0ZW0uZ3JpZEFydGljbGVQcmV2aWV3Q29tcG9uZW50e1xuICAgIC13ZWJraXQtYm94LXNoYWRvdzogMCAxcHggMTVweCAwIGhzbGEoMCwwJSw0OC4yJSwuMDUpO1xuICAgIGJveC1zaGFkb3c6IDAgMXB4IDE1cHggMCBoc2xhKDAsMCUsNDguMiUsLjA1KTtcbn1cblxuXG4iXX0= */"
+module.exports = ".editbar {\n  position: fixed;\n  bottom: 2rem;\n  left: 0;\n  display: flex;\n  height: 3rem;\n  width: 100%;\n  z-index: 100;\n  align-content: center;\n  flex-direction: row;\n  justify-content: center; }\n\n.editbar-inside {\n  height: 3.5rem;\n  width: 80%;\n  box-shadow: 0px 0px 8px -3px black;\n  background-color: white;\n  border-radius: 2px;\n  display: flex;\n  flex-direction: row;\n  align-items: center; }\n\ngridster-item > .button-holder {\n  display: none; }\n\ngridster-item:hover > .button-holder {\n  color: gray !important;\n  display: block;\n  cursor: pointer; }\n\n.button-holder-right {\n  z-index: 99;\n  position: absolute;\n  top: -3px;\n  right: 5px; }\n\n.button-holder-left {\n  z-index: 99;\n  position: absolute;\n  top: -3px;\n  left: 5px; }\n\n.bg-white {\n  background-color: white; }\n\ngridster-item.gridArticlePreviewComponent {\n  box-shadow: 0 1px 15px 0 rgba(123, 123, 123, 0.05); }\n\ngridster-item.gridMenuComponent {\n  display: flex !important;\n  background-color: transparent; }\n\n.gridMenuComponent > * {\n  width: 100%; }\n\ngridster-item.gridMenuComponent > grid-menu {\n  height: 100%;\n  width: 100%; }\n\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9yb290L3JlbWVkaWFzL21lZWRpYXNfZnJvbnRlbmQvc3JjL2FwcC9jb3JlL2NvbXBvbmVudHMvcGFnZS9wYWdlLnN0eWxlcy5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0VBQ0ksZ0JBQWU7RUFDZixhQUFZO0VBQ1osUUFBTztFQUNQLGNBQWE7RUFDYixhQUFZO0VBQ1osWUFBVztFQUNYLGFBQVk7RUFDWixzQkFBcUI7RUFDckIsb0JBQW1CO0VBQ25CLHdCQUF1QixFQUMxQjs7QUFHRDtFQUNJLGVBQWM7RUFDZCxXQUFVO0VBQ1YsbUNBQWtDO0VBQ2xDLHdCQUF1QjtFQUN2QixtQkFBa0I7RUFDbEIsY0FBYTtFQUNiLG9CQUFtQjtFQUNuQixvQkFBbUIsRUFDdEI7O0FBRUQ7RUFDSSxjQUFhLEVBQ2hCOztBQUVEO0VBQ0ksdUJBQXNCO0VBQ3RCLGVBQWM7RUFDZCxnQkFBZSxFQUNsQjs7QUFFRDtFQUNJLFlBQVc7RUFDWCxtQkFBa0I7RUFDbEIsVUFBUztFQUNULFdBQVUsRUFDYjs7QUFFRDtFQUNJLFlBQVc7RUFDWCxtQkFBa0I7RUFDbEIsVUFBUztFQUNULFVBQVMsRUFDWjs7QUFFRDtFQUNJLHdCQUF1QixFQUMxQjs7QUFFRDtFQUVJLG1EQUE2QyxFQUNoRDs7QUFFRDtFQUNJLHlCQUF3QjtFQUN4Qiw4QkFBNkIsRUFDaEM7O0FBRUQ7RUFDSSxZQUFXLEVBRWQ7O0FBRUQ7RUFDSSxhQUFXO0VBQ1gsWUFBVyxFQUNkIiwiZmlsZSI6InNyYy9hcHAvY29yZS9jb21wb25lbnRzL3BhZ2UvcGFnZS5zdHlsZXMuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5lZGl0YmFyIHtcbiAgICBwb3NpdGlvbjogZml4ZWQ7XG4gICAgYm90dG9tOiAycmVtO1xuICAgIGxlZnQ6IDA7XG4gICAgZGlzcGxheTogZmxleDtcbiAgICBoZWlnaHQ6IDNyZW07XG4gICAgd2lkdGg6IDEwMCU7XG4gICAgei1pbmRleDogMTAwO1xuICAgIGFsaWduLWNvbnRlbnQ6IGNlbnRlcjtcbiAgICBmbGV4LWRpcmVjdGlvbjogcm93O1xuICAgIGp1c3RpZnktY29udGVudDogY2VudGVyO1xufVxuXG5cbi5lZGl0YmFyLWluc2lkZSB7XG4gICAgaGVpZ2h0OiAzLjVyZW07XG4gICAgd2lkdGg6IDgwJTtcbiAgICBib3gtc2hhZG93OiAwcHggMHB4IDhweCAtM3B4IGJsYWNrO1xuICAgIGJhY2tncm91bmQtY29sb3I6IHdoaXRlO1xuICAgIGJvcmRlci1yYWRpdXM6IDJweDtcbiAgICBkaXNwbGF5OiBmbGV4O1xuICAgIGZsZXgtZGlyZWN0aW9uOiByb3c7XG4gICAgYWxpZ24taXRlbXM6IGNlbnRlcjtcbn1cblxuZ3JpZHN0ZXItaXRlbSA+IC5idXR0b24taG9sZGVyIHtcbiAgICBkaXNwbGF5OiBub25lO1xufVxuXG5ncmlkc3Rlci1pdGVtOmhvdmVyID4gLmJ1dHRvbi1ob2xkZXIge1xuICAgIGNvbG9yOiBncmF5ICFpbXBvcnRhbnQ7XG4gICAgZGlzcGxheTogYmxvY2s7XG4gICAgY3Vyc29yOiBwb2ludGVyO1xufVxuXG4uYnV0dG9uLWhvbGRlci1yaWdodCB7XG4gICAgei1pbmRleDogOTk7XG4gICAgcG9zaXRpb246IGFic29sdXRlO1xuICAgIHRvcDogLTNweDtcbiAgICByaWdodDogNXB4O1xufVxuXG4uYnV0dG9uLWhvbGRlci1sZWZ0IHtcbiAgICB6LWluZGV4OiA5OTtcbiAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgdG9wOiAtM3B4O1xuICAgIGxlZnQ6IDVweDtcbn1cblxuLmJnLXdoaXRlIHtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiB3aGl0ZTtcbn1cblxuZ3JpZHN0ZXItaXRlbS5ncmlkQXJ0aWNsZVByZXZpZXdDb21wb25lbnQge1xuICAgIC13ZWJraXQtYm94LXNoYWRvdzogMCAxcHggMTVweCAwIGhzbGEoMCwwJSw0OC4yJSwuMDUpO1xuICAgIGJveC1zaGFkb3c6IDAgMXB4IDE1cHggMCBoc2xhKDAsMCUsNDguMiUsLjA1KTtcbn1cblxuZ3JpZHN0ZXItaXRlbS5ncmlkTWVudUNvbXBvbmVudCB7XG4gICAgZGlzcGxheTogZmxleCAhaW1wb3J0YW50O1xuICAgIGJhY2tncm91bmQtY29sb3I6IHRyYW5zcGFyZW50O1xufVxuXG4uZ3JpZE1lbnVDb21wb25lbnQgPiAqIHtcbiAgICB3aWR0aDogMTAwJTtcblxufVxuXG5ncmlkc3Rlci1pdGVtLmdyaWRNZW51Q29tcG9uZW50ID4gZ3JpZC1tZW51IHtcbiAgICBoZWlnaHQ6MTAwJTtcbiAgICB3aWR0aDogMTAwJTtcbn1cblxuXG4iXX0= */"
 
 /***/ }),
 
@@ -6603,7 +6683,7 @@ module.exports = ".editbar {\n  position: fixed;\n  bottom: 2rem;\n  left: 0;\n 
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"editbar\" *ngIf=\"editmode == true && loaded == true\">\n    <div class=\"editbar-inside p-2\">\n        <div class=\"btn btn-outline-secondary mr-2\">\n            Nastavení\n        </div>\n        <div routerLink=\"/redactor/pages\" class=\"btn btn-outline-secondary mr-2\">\n            Zpět do redaktora\n        </div>\n        <div style=\"flex: 1;\"></div>\n        <div class=\"btn btn-outline-info mr-2\" (click)=\"open(content)\">\n            Přidat položku\n        </div>\n        <div class=\"btn btn-outline-success mr-2\" (click)=\"saveGrid()\">\n            Uložit\n            <!--  -->\n        </div>\n    </div>\n</div>\n\n\n<gridster [options]=\"options\" *ngIf=\"loaded\" [ngClass]=\"{'bg-white': !editmode}\">\n    <gridster-item [item]=\"item\" *ngFor=\"let item of dashboard\" ngClass=\"{{item.component}} \">\n        <div *ngIf=\"editmode == true\" class=\"button-holder button-holder-right\">\n            <span *ngIf=\"editmode == true\" mat-mini-fab (mousedown)=\"removeItem($event, item)\"\n                (touchstart)=\"removeItem($event, item)\">\n                x\n            </span>\n        </div>\n        <div *ngIf=\"editmode == true\" class=\"button-holder button-holder-left\">\n            <span *ngIf=\"editmode == true\" mat-mini-fab (mousedown)=\"editItem($event,item)\"\n                (touchstart)=\"editItem($event, item)\">\n                u\n            </span>\n        </div>\n        <ndc-dynamic [ndcDynamicComponent]=\"getComponent(item.component)\" [ndcDynamicInputs]=\"{options:item.options,editmode:editmode}\">\n        </ndc-dynamic>\n    </gridster-item>\n</gridster>\n\n\n\n<ng-template #content let-modal>\n <!-- asi nekam jinam tohle -->\n    <div class=\"modal-header\">\n        <h4 class=\"modal-title\" id=\"modal-basic-title\">Přidat komponentu</h4>\n        <span class=\"close\" aria-label=\"Close\" (click)=\"modal.dismiss('Cross click')\">\n            <span aria-hidden=\"true\">&times;</span>\n        </span>\n    </div>\n    <div class=\"modal-body\">\n        <form>\n            <select class=\"form-control\" [(ngModel)]=\"chosenComponent\" [ngModelOptions]=\"{standalone: true}\">\n                <option [ngValue]=\"def\" *ngFor=\"let def of componentDefinitions\">{{def.title}}</option>\n            </select>\n            <div *ngIf=\"chosenComponent\">\n                <div *ngIf=\"chosenComponent.select != undefined\">\n                    <div class=\"mt-2\" *ngFor=\"let sel of chosenComponent.select\">\n                        <div *ngIf=\"sel.dependsOn == undefined\">\n                            {{sel.name}} :\n                            <select required class=\"form-control\" [(ngModel)]=\"chosenComponentOptions[sel.name]\"\n                                [ngModelOptions]=\"{standalone: true}\">\n                                <option [ngValue]=\"opt[0]\" *ngFor=\"let opt of sel.options\">{{opt[1]}}</option>\n                            </select>\n                        </div>\n                        <div *ngIf=\"sel.dependsOn\">\n                            <div *ngIf=\"chosenComponentOptions[sel.dependsOn[0]] == sel.dependsOn[1]\">\n                                {{sel.name}} :\n                                <select required class=\"form-control\" [(ngModel)]=\"chosenComponentOptions[sel.name]\"\n                                    [ngModelOptions]=\"{standalone: true}\">\n                                    <option [ngValue]=\"opt[0]\" *ngFor=\"let opt of sel.options\">{{opt[1]}}</option>\n                                </select>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n                <div *ngIf=\"chosenComponent.text != undefined\">\n                    <div class=\"mt-2\" *ngFor=\"let str of chosenComponent.text\">\n                        {{str.name}} :\n                        <textarea class=\"form-control d-block\" [(ngModel)]=\"chosenComponentOptions[str.name]\"\n                            [ngModelOptions]=\"{standalone: true}\" cols=\"30\" rows=\"5\"></textarea>\n                    </div>\n                </div>\n                <div *ngIf=\"chosenComponent.richtext != undefined\">\n                        <div class=\"mt-2\" *ngFor=\"let str of chosenComponent.richtext\">\n                            {{str.name}} :\n                            <quill-editor [(ngModel)]=\"chosenComponentOptions[str.name]\"\n                                [ngModelOptions]=\"{standalone: true}\" [style]=\"{height: '200px'}\" ></quill-editor>\n                        </div>\n                </div>\n            </div>\n        </form>\n    </div>\n    <div class=\"modal-footer\">\n        <button type=\"button\" class=\"btn btn-outline-dark\" (click)=\"modal.close('Save click')\">Save</button>\n    </div>\n</ng-template>\n\n<div *ngIf=\"!loaded\">\n    <!-- in the middle or somethin -->\n    <meedias-spinner></meedias-spinner>\n</div>\n\n<!-- <ng-template #content let-modal>\n    <div class=\"modal-header\">\n      <h4 class=\"modal-title\" id=\"modal-basic-title\">Profile update</h4>\n      <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"modal.dismiss('Cross click')\">\n        <span aria-hidden=\"true\">&times;</span>\n      </button>\n    </div>\n    <div class=\"modal-body\">\n      <form>\n        <div class=\"form-group\">\n          <label for=\"dateOfBirth\">Date of birth</label>\n        </div>\n      </form>\n    </div>\n    <div class=\"modal-footer\">\n      <button type=\"button\" class=\"btn btn-outline-dark\" (click)=\"modal.close('Save click')\">Save</button>\n    </div>\n</ng-template> -->\n"
+module.exports = "<div class=\"editbar\" *ngIf=\"editmode == true && loaded == true\">\n    <div class=\"editbar-inside p-2\">\n        <div class=\"btn btn-outline-secondary mr-2\">\n            Nastavení\n        </div>\n        <div routerLink=\"/redactor/pages\" class=\"btn btn-outline-secondary mr-2\">\n            Zpět do redaktora\n        </div>\n        <div style=\"flex: 1;\"></div>\n        <div class=\"btn btn-outline-info mr-2\" (click)=\"open(content)\">\n            Přidat položku\n        </div>\n        <div class=\"btn btn-outline-success mr-2\" (click)=\"saveGrid()\">\n            Uložit\n            <!--  -->\n        </div>\n    </div>\n</div>\n\n\n<gridster [options]=\"options\" *ngIf=\"loaded\" [ngClass]=\"{'bg-color': !editmode}\">\n    <gridster-item [item]=\"item\" *ngFor=\"let item of dashboard\" ngClass=\"{{item.component}} {{(item.class) ? item.class : '' }}\" >\n        <div *ngIf=\"editmode == true\" class=\"button-holder button-holder-right\">\n            <span *ngIf=\"editmode == true\" mat-mini-fab (mousedown)=\"removeItem($event, item)\"\n                (touchstart)=\"removeItem($event, item)\">\n                x\n            </span>\n        </div>\n        <div *ngIf=\"editmode == true\" class=\"button-holder button-holder-left\">\n            <span *ngIf=\"editmode == true\" mat-mini-fab (mousedown)=\"editItem($event,item,content)\"\n                (touchstart)=\"editItem($event, item,content)\">\n                u\n            </span>\n        </div>\n        <ndc-dynamic [ndcDynamicComponent]=\"getComponent(item.component)\"\n            [ndcDynamicInputs]=\"{options:item.options,editmode:editmode,id:item.id}\"\n            [ndcDynamicOutputs]=\"outputs\">\n        </ndc-dynamic>\n    </gridster-item>\n</gridster>\n\n\n\n<ng-template #content let-modal>\n <!-- asi nekam jinam tohle -->\n    <div class=\"modal-header\">\n        <h4 class=\"modal-title\" id=\"modal-basic-title\">Přidat komponentu</h4>\n        <span class=\"close\" aria-label=\"Close\" (click)=\"modal.dismiss('Cross click')\">\n            <span aria-hidden=\"true\">&times;</span>\n        </span>\n    </div>\n    <div class=\"modal-body\">\n        <form>\n            <select class=\"form-control\" [(ngModel)]=\"chosenComponent\" [ngModelOptions]=\"{standalone: true}\">\n                <option [ngValue]=\"def\" *ngFor=\"let def of componentDefinitions\">{{def.title}}</option>\n            </select>\n            <div *ngIf=\"chosenComponent\">\n                <div *ngIf=\"chosenComponent.select != undefined\">\n                    <div class=\"mt-2\" *ngFor=\"let sel of chosenComponent.select\">\n                        <div *ngIf=\"sel.dependsOn == undefined\">\n                            {{sel.name}} :\n                            <select required class=\"form-control\" [(ngModel)]=\"chosenComponentOptions[sel.name]\"\n                                [ngModelOptions]=\"{standalone: true}\">\n                                <option [ngValue]=\"opt[0]\" *ngFor=\"let opt of sel.options\">{{opt[1]}}</option>\n                            </select>\n                        </div>\n                        <div *ngIf=\"sel.dependsOn\">\n                            <div *ngIf=\"chosenComponentOptions[sel.dependsOn[0]] == sel.dependsOn[1]\">\n                                {{sel.name}} :\n                                <select required class=\"form-control\" [(ngModel)]=\"chosenComponentOptions[sel.name]\"\n                                    [ngModelOptions]=\"{standalone: true}\">\n                                    <option [ngValue]=\"opt[0]\" *ngFor=\"let opt of sel.options\">{{opt[1]}}</option>\n                                </select>\n                            </div>\n                        </div>\n                    </div>\n                </div>\n                <div *ngIf=\"chosenComponent.text != undefined\">\n                    <div class=\"mt-2\" *ngFor=\"let str of chosenComponent.text\">\n                        {{str.name}} :\n                        <textarea class=\"form-control d-block\" [(ngModel)]=\"chosenComponentOptions[str.name]\"\n                            [ngModelOptions]=\"{standalone: true}\" cols=\"30\" rows=\"5\"></textarea>\n                    </div>\n                </div>\n                <div *ngIf=\"chosenComponent.richtext != undefined\">\n                        <div class=\"mt-2\" *ngFor=\"let str of chosenComponent.richtext\">\n                            {{str.name}} :\n                            <quill-editor [(ngModel)]=\"chosenComponentOptions[str.name]\"\n                                [ngModelOptions]=\"{standalone: true}\" [style]=\"{height: '200px'}\" ></quill-editor>\n                        </div>\n                </div>\n            </div>\n        </form>\n    </div>\n    <div class=\"modal-footer\">\n        <button type=\"button\" class=\"btn btn-outline-dark\" (click)=\"modal.close('Save click')\">Save</button>\n    </div>\n</ng-template>\n\n<div *ngIf=\"!loaded\">\n    <!-- in the middle or somethin -->\n    <meedias-spinner></meedias-spinner>\n</div>\n\n<!-- <ng-template #content let-modal>\n    <div class=\"modal-header\">\n      <h4 class=\"modal-title\" id=\"modal-basic-title\">Profile update</h4>\n      <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"modal.dismiss('Cross click')\">\n        <span aria-hidden=\"true\">&times;</span>\n      </button>\n    </div>\n    <div class=\"modal-body\">\n      <form>\n        <div class=\"form-group\">\n          <label for=\"dateOfBirth\">Date of birth</label>\n        </div>\n      </form>\n    </div>\n    <div class=\"modal-footer\">\n      <button type=\"button\" class=\"btn btn-outline-dark\" (click)=\"modal.close('Save click')\">Save</button>\n    </div>\n</ng-template> -->\n"
 
 /***/ }),
 
@@ -6630,6 +6710,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var src_app_common_components_grid_components_menu_menu_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! src/app/common/components/grid-components/menu/menu.component */ "./src/app/common/components/grid-components/menu/menu.component.ts");
 /* harmony import */ var src_app_common_modules_categories_categories_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! src/app/common/modules/categories/categories.service */ "./src/app/common/modules/categories/categories.service.ts");
 /* harmony import */ var src_app_common_components_grid_components_categories_categories_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! src/app/common/components/grid-components/categories/categories.component */ "./src/app/common/components/grid-components/categories/categories.component.ts");
+/* harmony import */ var src_app_common_components_grid_components_archive_archive_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! src/app/common/components/grid-components/archive/archive.component */ "./src/app/common/components/grid-components/archive/archive.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -6639,6 +6720,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 
@@ -6729,6 +6811,8 @@ var PageViewService = /** @class */ (function () {
                 return src_app_common_components_grid_components_menu_menu_component__WEBPACK_IMPORTED_MODULE_10__["gridMenuComponent"];
             case 'gridCategoriesComponent':
                 return src_app_common_components_grid_components_categories_categories_component__WEBPACK_IMPORTED_MODULE_12__["gridCategoriesComponent"];
+            case 'gridArchiveComponent':
+                return src_app_common_components_grid_components_archive_archive_component__WEBPACK_IMPORTED_MODULE_13__["gridArchiveComponent"];
             default:
                 break;
         }
@@ -6836,22 +6920,16 @@ var PageViewService = /** @class */ (function () {
                 title: "obrázek/logo",
                 page_type: [],
                 text: [
-                    { name: 'imageUrl' }
+                    { name: 'imageUrl' },
+                    { name: 'imageLink' }
                 ]
             },
             {
                 name: "gridTextComponent",
                 title: "text",
                 page_type: [],
-                select: [
-                    {
-                        name: "align",
-                        options: [
-                            ["left", "left"],
-                            ["right", "right"],
-                            ["center", "center"]
-                        ]
-                    }
+                text: [
+                    { name: 'class' }
                 ],
                 richtext: [
                     { name: 'text' }
@@ -6875,6 +6953,10 @@ var PageViewService = /** @class */ (function () {
             {
                 name: "gridCategoriesComponent",
                 title: "kategorie",
+            },
+            {
+                name: "gridArchiveComponent",
+                title: "archiv"
             }
         ];
     };
@@ -6977,6 +7059,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var ngx_toastr__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ngx-toastr */ "./node_modules/ngx-toastr/fesm5/ngx-toastr.js");
 /* harmony import */ var src_app_common_modules_categories_categories_service__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! src/app/common/modules/categories/categories.service */ "./src/app/common/modules/categories/categories.service.ts");
 /* harmony import */ var src_app_common_components_grid_components_categories_categories_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! src/app/common/components/grid-components/categories/categories.component */ "./src/app/common/components/grid-components/categories/categories.component.ts");
+/* harmony import */ var src_app_common_components_grid_components_archive_archive_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! src/app/common/components/grid-components/archive/archive.component */ "./src/app/common/components/grid-components/archive/archive.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -6989,6 +7072,7 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 /* Third party*/
 
 /* Internal */
+
 
 
 
@@ -7050,7 +7134,8 @@ var LandingModule = /** @class */ (function () {
                 src_app_common_components_grid_components_image_image_component__WEBPACK_IMPORTED_MODULE_14__["gridImageComponent"],
                 src_app_common_components_grid_components_article_article_component__WEBPACK_IMPORTED_MODULE_17__["gridArticleComponent"],
                 src_app_common_components_grid_components_categories_categories_component__WEBPACK_IMPORTED_MODULE_23__["gridCategoriesComponent"],
-                src_app_common_components_grid_components_articlePreview_article_component__WEBPACK_IMPORTED_MODULE_16__["gridArticlePreviewComponent"]
+                src_app_common_components_grid_components_articlePreview_article_component__WEBPACK_IMPORTED_MODULE_16__["gridArticlePreviewComponent"],
+                src_app_common_components_grid_components_archive_archive_component__WEBPACK_IMPORTED_MODULE_24__["gridArchiveComponent"]
             ],
             imports: [
                 ngx_toastr__WEBPACK_IMPORTED_MODULE_21__["ToastrModule"],
@@ -7067,7 +7152,8 @@ var LandingModule = /** @class */ (function () {
                     src_app_common_components_grid_components_article_article_component__WEBPACK_IMPORTED_MODULE_17__["gridArticleComponent"],
                     src_app_common_components_grid_components_menu_menu_component__WEBPACK_IMPORTED_MODULE_18__["gridMenuComponent"],
                     src_app_common_components_grid_components_ad_ad_component__WEBPACK_IMPORTED_MODULE_19__["gridAdComponent"],
-                    src_app_common_components_grid_components_categories_categories_component__WEBPACK_IMPORTED_MODULE_23__["gridCategoriesComponent"]
+                    src_app_common_components_grid_components_categories_categories_component__WEBPACK_IMPORTED_MODULE_23__["gridCategoriesComponent"],
+                    src_app_common_components_grid_components_archive_archive_component__WEBPACK_IMPORTED_MODULE_24__["gridArchiveComponent"]
                 ]),
                 _angular_router__WEBPACK_IMPORTED_MODULE_0__["RouterModule"].forChild(landing_routes)
             ],
@@ -7119,10 +7205,8 @@ module.exports = "unauthenticated (landing page)\n\n<router-outlet></router-outl
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "core_routes", function() { return core_routes; });
-/* harmony import */ var _unreachable_unreachable_routing__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./unreachable/unreachable.routing */ "./src/app/core/modules/unreachable/unreachable.routing.ts");
-/* harmony import */ var _login_login_routing__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./login/login.routing */ "./src/app/core/modules/login/login.routing.ts");
-/* harmony import */ var _landing_landing_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./landing/landing.component */ "./src/app/core/modules/landing/landing.component.ts");
-
+/* harmony import */ var _login_login_routing__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./login/login.routing */ "./src/app/core/modules/login/login.routing.ts");
+/* harmony import */ var _landing_landing_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./landing/landing.component */ "./src/app/core/modules/landing/landing.component.ts");
 
 
 /**
@@ -7131,9 +7215,9 @@ __webpack_require__.r(__webpack_exports__);
 var core_routes = [
     {
         path: '',
-        component: _landing_landing_component__WEBPACK_IMPORTED_MODULE_2__["LandingComponent"]
+        component: _landing_landing_component__WEBPACK_IMPORTED_MODULE_1__["LandingComponent"]
     }
-].concat(_unreachable_unreachable_routing__WEBPACK_IMPORTED_MODULE_0__["unreachable_routes"], _login_login_routing__WEBPACK_IMPORTED_MODULE_1__["login_routes"]);
+].concat(_login_login_routing__WEBPACK_IMPORTED_MODULE_0__["login_routes"]);
 
 
 /***/ })

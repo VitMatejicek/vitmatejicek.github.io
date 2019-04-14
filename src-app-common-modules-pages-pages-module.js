@@ -189,6 +189,95 @@ var PagesModule = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/common/modules/pages/pages.service.ts":
+/*!*******************************************************!*\
+  !*** ./src/app/common/modules/pages/pages.service.ts ***!
+  \*******************************************************/
+/*! exports provided: PagesService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PagesService", function() { return PagesService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var src_app_core_services__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! src/app/core/services */ "./src/app/core/services/index.ts");
+/* harmony import */ var src_app_core_services_cookies_cookies_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! src/app/core/services/cookies/cookies.service */ "./src/app/core/services/cookies/cookies.service.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var PagesService = /** @class */ (function () {
+    function PagesService(http, envService, cookies, authentication) {
+        this.http = http;
+        this.envService = envService;
+        this.cookies = cookies;
+        this.authentication = authentication;
+    }
+    PagesService.prototype.getPages = function () {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            _this.http.get(_this.envService.read('apiUrl') + '/' + window['instance_id'] + '/pages').subscribe(resolve, reject);
+        });
+    };
+    PagesService.prototype.getPageInfo = function (gridId) {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            _this.http.get(_this.envService.read('apiUrl') + '/grid/' + gridId).subscribe(resolve, reject);
+        });
+    };
+    PagesService.prototype.deletePage = function (gridId) {
+        var _this = this;
+        var authinfo = this.authentication._authinfo.get();
+        var options = {
+            headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({ 'Content-Type': 'application/json' }),
+            body: authinfo
+        };
+        return new Promise(function (resolve, reject) {
+            _this.http.delete(_this.envService.read('apiUrl') + '/grid/' + gridId, options).subscribe(resolve, reject);
+        });
+    };
+    PagesService.prototype.editPage = function (gridId, data) {
+        var _this = this;
+        var authinfo = this.authentication._authinfo.get();
+        return new Promise(function (resolve, reject) {
+            _this.http.patch(_this.envService.read('apiUrl') + '/grid/' + gridId, { auth_info: authinfo, grid: data }).subscribe(resolve, reject);
+        });
+    };
+    PagesService.prototype.createPage = function (data) {
+        var _this = this;
+        var authinfo = this.authentication._authinfo.get();
+        var grid = {
+            auth_info: authinfo,
+            grid: data
+        };
+        return new Promise(function (resolve, reject) {
+            _this.http.post(_this.envService.read('apiUrl') + '/grid/new', grid).subscribe(resolve, reject);
+        });
+    };
+    PagesService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])(),
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"],
+            src_app_core_services__WEBPACK_IMPORTED_MODULE_2__["EnvironmentService"],
+            src_app_core_services_cookies_cookies_service__WEBPACK_IMPORTED_MODULE_3__["CookiesService"],
+            src_app_core_services__WEBPACK_IMPORTED_MODULE_2__["AuthenticationService"]])
+    ], PagesService);
+    return PagesService;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/shared.module.ts":
 /*!**********************************!*\
   !*** ./src/app/shared.module.ts ***!
